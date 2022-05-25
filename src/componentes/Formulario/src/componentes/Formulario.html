@@ -1,0 +1,65 @@
+<section class="src-componentes-formulario">
+  <div class="jumbotron">
+
+    <form novalidate @submit.prevent="enviar()">
+
+     
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input 
+          id="nombre" 
+          class="form-control" 
+          type="text"
+          v-model.trim="formData.nombre"
+          @input="formDirty.nombre=true"
+        >
+        <div v-if="(!formData.nombre || formData.nombre.length<5 || formData.nombre.length>15) && formDirty.nombre" class="alert alert-danger mt-1">
+          <div v-if="!formData.nombre">Campo requerido</div>
+          <div v-else-if="formData.nombre.length<5">Este campo requiere al menos 5 caracteres</div>
+          <div v-else-if="formData.nombre.length>15">Este campo requiere como máximo 15 caracteres</div>
+        </div>
+      </div>
+
+      
+
+      <div class="form-group">
+        <label for="edad">Edad</label>
+        <input 
+          id="edad" 
+          class="form-control" 
+          type="number"
+          v-model.number="formData.edad"
+          @input="formDirty.edad=true"
+        >
+        <div v-if="(!formData.edad || formData.edad.length<18 || formData.edad.length>120) && formDirty.edad" class="alert alert-danger mt-1">
+          <div v-if="!formData.edad">Campo requerido</div>
+          <div v-else-if="formData.edad.length<18">Debes ser mayor de edad</div>
+          <div v-else-if="formData.edad.length>120">Edad no válida</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input 
+          id="email" 
+          class="form-control" 
+          type="email"
+          v-model="formData.email"
+          @input="formDirty.email=true"
+        >
+        <div v-if="(!formData.email) && formDirty.email" class="alert alert-danger mt-1">
+          <div v-if="!formData.email">Campo requerido</div>
+        </div>
+      </div>
+
+      <button class="btn btn-success my-3" :disabled="!formData.nombre || formData.nombre.length<3" >Enviar</button>
+
+    </form>
+      <div class="dataForm">
+    <hr>
+    <p><u>formData</u></p>
+    <pre>{{ formData }}</pre>
+
+  </div>
+  </div>
+</section>
